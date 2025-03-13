@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuma Karadash</title>
+    <!-- React ve ReactDOM CDN'lerini ekleyin -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel'i ekleyin, JSX kodunu anlamak için -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><text y='32' font-size='32'>☕</text></svg>">
+</head>
+<body>
+    <!-- React uygulamasının bağlanacağı kök element -->
+    <div id="root"></div>
+
+    <!-- React kodunu içeren script etiketi -->
+    <script type="text/babel">
+        const projects = [
+            { title: "2026'ya Geri Sayım Türkçe", description: "Bu web sitesi, 2026 yılına geri sayım yapan bir platform olup, resmi tatiller ve özel günlerin takibi için kullanıcılarına kolaylık sağlar.", image: "pic/6.png", demo: "https://cumakaradash.github.io/Countdown-to-2026-Turkish/" },
+            { title: "Hizmet Sitesi", description: "Bu web sitesi, Cuma Karadash adlı bir web geliştiricisinin hizmetlerini, portföyünü ve iletişim bilgilerini tanıtmaktadır.", image: "pic/4.png", demo: "https://cumakaradash.github.io/Service-Site/" },
+            { title: "Yazma Hızı Testi", description: "Klavye Hızı Testi, kullanıcıların dakikadaki kelime ve karakter hızlarını ölçmelerini sağlayan interaktif bir web uygulamasıdır. Farklı test süreleri, zorluk seviyeleri ve diller ile yazma becerilerinizi geliştirin.", image: "pic/5.png", demo: "https://cumakaradash.github.io/TypingTest/" },
+            { title: "2024 Mood Calendar Uygulaması", description: "2024 Mood Calendar Uygulaması, kullanıcıların 2024 yılı boyunca günlük ruh hallerini takip edebilecekleri interaktif bir web uygulamasıdır.", image: "pic/1.png", demo: "https://cumakaradash.github.io/2024-Mood-Calendar/" },
+            { title: "Rastgele Yemek Oluşturucu", description: "Her tıklamada kullanıcıya rastgele bir yemek tarifi sunan bir web uygulamasıdır.", image: "pic/2.png", demo: "https://cumakaradash.github.io/Random-Meal-Generator/" },
+            { title: "Restoran Web Sitesi", description: "Gastronomi, kullanıcıların modern ve sıcak bir atmosferde geleneksel lezzetleri modern sunum teknikleriyle deneyimleyebileceği bir restorandır.", image: "pic/3.png", demo: "https://cumakaradash.github.io/Gastronomi/" }
+        ];
+
+        const blogs = [
+            { title: "SS7 Güvenlik Açıkları", excerpt: "SS7 (Signaling System No. 7) protokolünün mimarisi, kullanım alanları ve güvenlik açıklarını detaylı bir şekilde incelemektedir. SS7, telekomünikasyon endüstrisinde kritik bir rol oynayan bir sinyalizasyon protokolüdür. Makale, SS7'nin nasıl çalıştığını, hangi alanlarda kullanıldığını ve güvenlik açıklarının ne olduğunu açıklıyor.", link: "https://github.com/CumaKaradash/SS7" },
+            { title: "Derin Paket İnceleme (DPI)", excerpt: "Modern internet altyapısındaki erişim engellemelerini ve DPI teknolojisini detaylı bir şekilde inceleyen bir araştırmadır. DPI sistemlerinin teknik altyapısı, protokol analizleri, bypass teknolojileri ve performans analizi kapsar. FPGA, ASIC, makine öğrenimi ve şifreleme teknikleriyle açık kaynaklı olarak paylaşılmaktadır.", link: "https://github.com/CumaKaradash/DPI" },
+            { title: "Chrome Verimlilik Uzantıları", excerpt: "Chrome için verimlilik artırıcı uzantılar sunuyor: reklam engelleyici, dil çevirici, yapay zeka asistanı, YouTube odaklama aracı, anonim e-posta ve karanlık mod. Uzantılar, Chrome Web Mağazası'ndan ücretsiz olarak indirilebilir ve açık kaynaklıdır.", link: "https://github.com/CumaKaradash/chrome-verimlilik-uzantilari" },
+            { title: "Zararlı Yazılımlar", excerpt: "Dijital dünya, hayatımızı kolaylaştırırken yeni tehditler de getiriyor. Bilgisayarlar ve akıllı telefonları hedef alan zararlı yazılımlar önemli bir tehdittir. Bu yazıda, zararlı yazılım türlerini, bulaşma yollarını ve korunma yöntemlerini inceleyeceğiz.", link: "https://github.com/CumaKaradash/zararli-yazilimlar" },
+            { title: "Harika RSS Akışları", excerpt: "Popüler web siteleri ve servisler için kullanılabilir RSS/Atom beslemelerinin bir koleksiyonudur. Haber siteleri, sosyal medya platformları ve teknoloji blogları için düzenli güncellenen RSS kaynakları sunuyoruz.", link: "https://github.com/CumaKaradash/awesome-rss-feeds" }
+        ];
+
+        function Portfolio() {
+            return (
+                <div className="bg-gray-900 text-white min-h-screen">
+                    <header className="flex justify-between items-center p-6 bg-blue-600 text-white">
+                        <h1 className="text-3xl font-bold">Cuma Karadash</h1>
+                    </header>
+
+                    <section className="flex flex-col md:flex-row items-center justify-center text-center md:text-left py-20 px-16 md:px-24 bg-gradient-to-r from-blue-500 to-purple-500 text-white">
+                        <div className="md:w-1/2">
+                            <h2 className="text-5xl font-bold mb-4">Merhaba, Ben Cuma Karadaş</h2>
+                            <p className="text-lg">2 yıldan fazla web ve yazılım geliştirme deneyimine sahip Web Geliştiricisiyim. Java, JavaScript, HTML, CSS ve PHP'de uzmanlığa sahibim. E-ticaret, portföy ve blog sitelerinde API entegrasyonu, kullanıcı deneyimi ve performans optimizasyonu üzerine çalışıyorum. Modern web teknolojileriyle yenilikçi çözümler üretiyorum.</p>
+                        </div>
+                        <div className="md:w-1/2 flex justify-center mt-6 md:mt-0">
+                            <img src="https://avatars.githubusercontent.com/u/166289295?v=" alt="Profil Resmi" className="w-60 h-60 rounded-full shadow-lg" />
+                        </div>
+                    </section>
+
+                    <section className="p-10">
+                        <h3 className="text-3xl font-semibold text-center mb-6">Projelerim</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {projects.map((project, index) => (
+                                <div key={index} className="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition">
+                                    <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
+                                    <div className="p-4">
+                                        <h4 className="text-xl font-bold">{project.title}</h4>
+                                        <p className="text-gray-300">{project.description}</p>
+                                        <a href={project.demo} className="mt-2 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Projeyi Gör</a>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    <section className="p-10 bg-gray-800">
+                        <h3 className="text-3xl font-semibold text-center mb-6">Blog Yazılarım</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {blogs.map((blog, index) => (
+                                <div key={index} className="bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-2xl transition">
+                                    <h4 className="text-xl font-bold mb-2">{blog.title}</h4>
+                                    <p className="text-gray-300 mb-4">{blog.excerpt}</p>
+                                    <a href={blog.link} className="text-blue-400 hover:underline">Devamını Oku</a>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    <footer className="text-center p-6 bg-gray-800">
+                        <div className="flex justify-center gap-4 text-2xl text-blue-400">
+                        <a href="https://github.com/CumaKaradash" target="_blank" rel="noopener noreferrer"><i className="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/cuma-karadash/" target="_blank" rel="noopener noreferrer"><i className="fab fa-linkedin"></i></a>
+                        <a href="mailto:cumakaradash@gmail.com"><i className="fas fa-envelope"></i></a>
+                        <a href="https://youtube.com/@cumakaradash" target="_blank" rel="noopener noreferrer"><i className="fab fa-youtube"></i></a>
+                    </div>
+
+                        <p className="text-gray-400 mt-4">© CumaKaradash Tüm Hakları Saklıdır.</p>
+                    </footer>
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<Portfolio />);
+    </script>
+</body>
+</html>
