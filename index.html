@@ -1,171 +1,157 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cuma Karadash</title>
-    <!-- React ve ReactDOM CDN'lerini cdnjs üzerinden ekleyin (CORS sorunu çözümü) -->
-    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
-    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.js"></script>
-    <!-- Babel'i cdnjs üzerinden ekleyin -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.22.10/babel.min.js"></script>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><text y='32' font-size='32'>☕</text></svg>">
+    <title>Portfolio</title>
+    <!-- Include Tailwind CSS for styling -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- React uygulamasının bağlanacağı kök element -->
     <div id="root"></div>
 
-    <!-- React kodunu içeren script etiketi -->
+    <!-- Load React and ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- Load Babel for JSX compilation -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <!-- Your React component script -->
     <script type="text/babel">
-       import React, { useState, useEffect } from 'react';
+        function Portfolio() {
+            const [isLoaded, setIsLoaded] = React.useState(false);
 
-function Portfolio() {
-    const [isLoaded, setIsLoaded] = useState(false);
+            const projects = [
+                { title: "2026'ya Geri Sayım Türkçe", description: "2026 yılına geri sayım yapan platform, resmi tatiller ve özel günlerin takibi için kolaylık sağlar.", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23374151'/%3E%3Ctext x='200' y='100' text-anchor='middle' dy='.3em' fill='white' font-size='24'%3ECountdown 2026%3C/text%3E%3C/svg%3E", demo: "https://cumakaradash.github.io/Countdown-to-2026-Turkish/" },
+                { title: "Hizmet Sitesi", description: "Web geliştirici hizmetlerini, portföyünü ve iletişim bilgilerini tanıtan site.", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23374151'/%3E%3Ctext x='200' y='100' text-anchor='middle' dy='.3em' fill='white' font-size='20'%3EService Site%3C/text%3E%3C/svg%3E", demo: "https://cumakaradash.github.io/Service-Site/" },
+                { title: "Yazma Hızı Testi", description: "Dakikadaki kelime ve karakter hızlarını ölçen interaktif web uygulaması.", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23374151'/%3E%3Ctext x='200' y='100' text-anchor='middle' dy='.3em' fill='white' font-size='20'%3ETyping Test%3C/text%3E%3C/svg%3E", demo: "https://cumakaradash.github.io/TypingTest/" },
+                { title: "2024 Mood Calendar", description: "2024 yılı boyunca günlük ruh hallerini takip eden interaktif uygulama.", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23374151'/%3E%3Ctext x='200' y='100' text-anchor='middle' dy='.3em' fill='white' font-size='18'%3EMood Calendar%3C/text%3E%3C/svg%3E", demo: "https://cumakaradash.github.io/2024-Mood-Calendar/" },
+                { title: "Rastgele Yemek Oluşturucu", description: "Her tıklamada rastgele yemek tarifi sunan web uygulaması.", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23374151'/%3E%3Ctext x='200' y='100' text-anchor='middle' dy='.3em' fill='white' font-size='18'%3ERandom Meal%3C/text%3E%3C/svg%3E", demo: "https://cumakaradash.github.io/Random-Meal-Generator/" },
+                { title: "Restoran Web Sitesi", description: "Geleneksel lezzetleri modern sunum teknikleriyle sunan restoran sitesi.", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23374151'/%3E%3Ctext x='200' y='100' text-anchor='middle' dy='.3em' fill='white' font-size='20'%3ERestaurant%3C/text%3E%3C/svg%3E", demo: "https://cumakaradash.github.io/Gastronomi/" }
+            ];
 
-    // Compressed project data
-    const projects = [
-        { title: "2026'ya Geri Sayım Türkçe", description: "2026 yılına geri sayım yapan platform, resmi tatiller ve özel günlerin takibi için kolaylık sağlar.", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23374151'/%3E%3Ctext x='200' y='100' text-anchor='middle' dy='.3em' fill='white' font-size='24'%3ECountdown 2026%3C/text%3E%3C/svg%3E", demo: "https://cumakaradash.github.io/Countdown-to-2026-Turkish/" },
-        { title: "Hizmet Sitesi", description: "Web geliştirici hizmetlerini, portföyünü ve iletişim bilgilerini tanıtan site.", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23374151'/%3E%3Ctext x='200' y='100' text-anchor='middle' dy='.3em' fill='white' font-size='20'%3EService Site%3C/text%3E%3C/svg%3E", demo: "https://cumakaradash.github.io/Service-Site/" },
-        { title: "Yazma Hızı Testi", description: "Dakikadaki kelime ve karakter hızlarını ölçen interaktif web uygulaması.", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23374151'/%3E%3Ctext x='200' y='100' text-anchor='middle' dy='.3em' fill='white' font-size='20'%3ETyping Test%3C/text%3E%3C/svg%3E", demo: "https://cumakaradash.github.io/TypingTest/" },
-        { title: "2024 Mood Calendar", description: "2024 yılı boyunca günlük ruh hallerini takip eden interaktif uygulama.", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23374151'/%3E%3Ctext x='200' y='100' text-anchor='middle' dy='.3em' fill='white' font-size='18'%3EMood Calendar%3C/text%3E%3C/svg%3E", demo: "https://cumakaradash.github.io/2024-Mood-Calendar/" },
-        { title: "Rastgele Yemek Oluşturucu", description: "Her tıklamada rastgele yemek tarifi sunan web uygulaması.", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23374151'/%3E%3Ctext x='200' y='100' text-anchor='middle' dy='.3em' fill='white' font-size='18'%3ERandom Meal%3C/text%3E%3C/svg%3E", demo: "https://cumakaradash.github.io/Random-Meal-Generator/" },
-        { title: "Restoran Web Sitesi", description: "Geleneksel lezzetleri modern sunum teknikleriyle sunan restoran sitesi.", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23374151'/%3E%3Ctext x='200' y='100' text-anchor='middle' dy='.3em' fill='white' font-size='20'%3ERestaurant%3C/text%3E%3C/svg%3E", demo: "https://cumakaradash.github.io/Gastronomi/" }
-    ];
+            const blogs = [
+                { title: "SS7 Güvenlik Açıkları", excerpt: "SS7 protokolünün mimarisi, kullanım alanları ve güvenlik açıklarını detaylı inceleme.", link: "https://github.com/CumaKaradash/SS7" },
+                { title: "Derin Paket İnceleme (DPI)", excerpt: "Modern internet altyapısındaki erişim engellemeleri ve DPI teknolojisi araştırması.", link: "https://github.com/CumaKaradash/DPI" },
+                { title: "Chrome Verimlilik Uzantıları", excerpt: "Chrome için verimlilik artırıcı uzantılar: reklam engelleyici, dil çevirici, YZ asistanı.", link: "https://github.com/CumaKaradash/chrome-verimlilik-uzantilari" },
+                { title: "Zararlı Yazılımlar", excerpt: "Zararlı yazılım türleri, bulaşma yolları ve korunma yöntemlerinin incelenmesi.", link: "https://github.com/CumaKaradash/zararli-yazilimlar" },
+                { title: "Harika RSS Akışları", excerpt: "Popüler web siteleri için kullanılabilir RSS/Atom beslemelerinin koleksiyonu.", link: "https://github.com/CumaKaradash/awesome-rss-feeds" },
+                { title: "Yapay Zeka Okuryazarlığı", excerpt: "YZ teknolojilerini anlama ve değerlendirme becerilerini geliştirme kaynağı.", link: "https://github.com/CumaKaradash/Yapay-Zeka-Okuryazarligi" }
+            ];
 
-    const blogs = [
-        { title: "SS7 Güvenlik Açıkları", excerpt: "SS7 protokolünün mimarisi, kullanım alanları ve güvenlik açıklarını detaylı inceleme.", link: "https://github.com/CumaKaradash/SS7" },
-        { title: "Derin Paket İnceleme (DPI)", excerpt: "Modern internet altyapısındaki erişim engellemeleri ve DPI teknolojisi araştırması.", link: "https://github.com/CumaKaradash/DPI" },
-        { title: "Chrome Verimlilik Uzantıları", excerpt: "Chrome için verimlilik artırıcı uzantılar: reklam engelleyici, dil çevirici, YZ asistanı.", link: "https://github.com/CumaKaradash/chrome-verimlilik-uzantilari" },
-        { title: "Zararlı Yazılımlar", excerpt: "Zararlı yazılım türleri, bulaşma yolları ve korunma yöntemlerinin incelenmesi.", link: "https://github.com/CumaKaradash/zararli-yazilimlar" },
-        { title: "Harika RSS Akışları", excerpt: "Popüler web siteleri için kullanılabilir RSS/Atom beslemelerinin koleksiyonu.", link: "https://github.com/CumaKaradash/awesome-rss-feeds" },
-        { title: "Yapay Zeka Okuryazarlığı", excerpt: "YZ teknolojilerini anlama ve değerlendirme becerilerini geliştirme kaynağı.", link: "https://github.com/CumaKaradash/Yapay-Zeka-Okuryazarligi" }
-    ];
+            React.useEffect(() => {
+                const timer = setTimeout(() => setIsLoaded(true), 100);
+                return () => clearTimeout(timer);
+            }, []);
 
-    useEffect(() => {
-        // Minimize initial JavaScript execution
-        const timer = setTimeout(() => setIsLoaded(true), 100);
-        return () => clearTimeout(timer);
-    }, []);
-
-    const ProjectCard = ({ project }) => (
-        <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition">
-            <img 
-                src={project.image} 
-                alt={project.title} 
-                className="w-full h-48 object-cover"
-                loading="lazy"
-                decoding="async"
-            />
-            <div className="p-4">
-                <h4 className="text-xl font-bold">{project.title}</h4>
-                <p className="text-gray-300">{project.description}</p>
-                <a 
-                    href={project.demo} 
-                    className="mt-2 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Projeyi Gör
-                </a>
-            </div>
-        </div>
-    );
-
-    const BlogCard = ({ blog }) => (
-        <div className="bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-2xl transition">
-            <h4 className="text-xl font-bold mb-2">{blog.title}</h4>
-            <p className="text-gray-300 mb-4">{blog.excerpt}</p>
-            <a 
-                href={blog.link} 
-                className="text-blue-400 hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Devamını Oku
-            </a>
-        </div>
-    );
-
-    return (
-        <div className="bg-gray-900 text-white min-h-screen">
-            {/* Optimized Header */}
-            <header className="flex justify-between items-center p-6 bg-blue-600 text-white">
-                <h1 className="text-3xl font-bold">Cuma Karadash</h1>
-            </header>
-
-            {/* Hero Section - Optimized */}
-            <section className="flex flex-col md:flex-row items-center justify-center text-center md:text-left py-20 px-16 md:px-24 bg-gradient-to-r from-blue-500 to-purple-500 text-white">
-                <div className="md:w-1/2">
-                    <h2 className="text-5xl font-bold mb-4">Merhaba, Ben Cuma Karadaş</h2>
-                    <p className="text-lg">2+ yıl web ve yazılım geliştirme deneyimi. Java, JavaScript, HTML, CSS ve PHP uzmanı. Modern web teknolojileriyle yenilikçi çözümler üretiyorum.</p>
-                </div>
-                <div className="md:w-1/2 flex justify-center mt-6 md:mt-0">
-                    <img 
-                        src="https://avatars.githubusercontent.com/u/166289295?v=4" 
-                        alt="Profil Resmi" 
-                        className="w-60 h-60 rounded-full shadow-lg" 
-                        loading="eager"
+            const ProjectCard = ({ project }) => (
+                <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition">
+                    <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-48 object-cover"
+                        loading="lazy"
                         decoding="async"
-                        width="240"
-                        height="240"
                     />
+                    <div className="p-4">
+                        <h4 className="text-xl font-bold">{project.title}</h4>
+                        <p className="text-gray-300">{project.description}</p>
+                        <a
+                            href={project.demo}
+                            className="mt-2 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Projeyi Gör
+                        </a>
+                    </div>
                 </div>
-            </section>
+            );
 
-            {/* Projects Section - Optimized */}
-            <section className="p-10">
-                <h3 className="text-3xl font-semibold text-center mb-6">Projelerim</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {projects.map((project, index) => (
-                        <ProjectCard key={index} project={project} />
-                    ))}
+            const BlogCard = ({ blog }) => (
+                <div className="bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-2xl transition">
+                    <h4 className="text-xl font-bold mb-2">{blog.title}</h4>
+                    <p className="text-gray-300 mb-4">{blog.excerpt}</p>
+                    <a
+                        href={blog.link}
+                        className="text-blue-400 hover:underline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Devamını Oku
+                    </a>
                 </div>
-            </section>
+            );
 
-            {/* Blog Section - Optimized */}
-            <section className="p-10 bg-gray-800">
-                <h3 className="text-3xl font-semibold text-center mb-6">Blog Yazılarım</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {blogs.map((blog, index) => (
-                        <BlogCard key={index} blog={blog} />
-                    ))}
+            return (
+                <div className="bg-gray-900 text-white min-h-screen">
+                    <header className="flex justify-between items-center p-6 bg-blue-600 text-white">
+                        <h1 className="text-3xl font-bold">Cuma Karadash</h1>
+                    </header>
+                    <section className="flex flex-col md:flex-row items-center justify-center text-center md:text-left py-20 px-16 md:px-24 bg-gradient-to-r from-blue-500 to-purple-500 text-white">
+                        <div className="md:w-1/2">
+                            <h2 className="text-5xl font-bold mb-4">Merhaba, Ben Cuma Karadaş</h2>
+                            <p className="text-lg">2+ yıl web ve yazılım geliştirme deneyimi. Java, JavaScript, HTML, CSS ve PHP uzmanı. Modern web teknolojileriyle yenilikçi çözümler üretiyorum.</p>
+                        </div>
+                        <div className="md:w-1/2 flex justify-center mt-6 md:mt-0">
+                            <img
+                                src="https://avatars.githubusercontent.com/u/166289295?v=4"
+                                alt="Profil Resmi"
+                                className="w-60 h-60 rounded-full shadow-lg"
+                                loading="eager"
+                                decoding="async"
+                                width="240"
+                                height="240"
+                            />
+                        </div>
+                    </section>
+                    <section className="p-10">
+                        <h3 className="text-3xl font-semibold text-center mb-6">Projelerim</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {projects.map((project, index) => (
+                                <ProjectCard key={index} project={project} />
+                            ))}
+                        </div>
+                    </section>
+                    <section className="p-10 bg-gray-800">
+                        <h3 className="text-3xl font-semibold text-center mb-6">Blog Yazılarım</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {blogs.map((blog, index) => (
+                                <BlogCard key={index} blog={blog} />
+                            ))}
+                        </div>
+                    </section>
+                    <footer className="text-center p-6 bg-gray-800">
+                        <div className="flex justify-center gap-4 text-2xl text-blue-400">
+                            <a href="https://github.com/CumaKaradash" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </a>
+                            <a href="https://www.linkedin.com/in/cuma-karadash/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                                </svg>
+                            </a>
+                            <a href="mailto:cumakaradash@gmail.com" aria-label="Email">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-.904.732-1.636 1.636-1.636h.749L12 10.855l9.615-7.034h.749c.904 0 1.636.732 1.636 1.636z"/>
+                                </svg>
+                            </a>
+                            <a href="https://youtube.com/@cumakaradash" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                </svg>
+                            </a>
+                        </div>
+                        <p className="text-gray-400 mt-4">© CumaKaradash Tüm Hakları Saklıdır.</p>
+                    </footer>
                 </div>
-            </section>
+            );
+        }
 
-            {/* Optimized Footer */}
-            <footer className="text-center p-6 bg-gray-800">
-                <div className="flex justify-center gap-4 text-2xl text-blue-400">
-                    <a href="https://github.com/CumaKaradash" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                        </svg>
-                    </a>
-                    <a href="https://www.linkedin.com/in/cuma-karadash/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                        </svg>
-                    </a>
-                    <a href="mailto:cumakaradash@gmail.com" aria-label="Email">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-.904.732-1.636 1.636-1.636h.749L12 10.855l9.615-7.034h.749c.904 0 1.636.732 1.636 1.636z"/>
-                        </svg>
-                    </a>
-                    <a href="https://youtube.com/@cumakaradash" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                        </svg>
-                    </a>
-                </div>
-                <p className="text-gray-400 mt-4">© CumaKaradash Tüm Hakları Saklıdır.</p>
-            </footer>
-        </div>
-    );
-}
-export default Portfolio;
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<Portfolio />);
     </script>
 </body>
 </html>
